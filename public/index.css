@@ -1,3 +1,24 @@
+html {
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0 10px;
+}
+.box {
+  background-color: #e1e1e1;
+  width: 300px;
+  /* max-width: 700px; */
+  min-height: 200px;
+  height: auto;
+  border: 1px solid #232323;
+  border-radius: 3px;
+}
+
 #img {
   display: block;
   margin: auto;
@@ -6,9 +27,14 @@
   padding: 2rem;
 }
 
-#canvas {
-  display: block;
-  margin: 2rem auto;
-  width: 540px;
-  height: 540px;
+#new-task-form {
+  padding: 10px;
+  display: flex;
+  /* width: 100%; */
+  justify-content: space-between;
+  gap: 0.5rem;
+  
+}
+#new-task-title {
+  width: 100%;
 }

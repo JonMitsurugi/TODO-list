@@ -1,11 +1,45 @@
-/**
- * This file is just a silly example to show everything working in the browser.
- * When you're ready to start on your site, clear the file. Happy hacking!
- **/
+import { v4 as uuidV4 } from 'uuid';
 
-import confetti from 'canvas-confetti';
+type Task = {
+  id: string;
+  title: string;
+  completed: boolean;
+  createdAt: Date;
+};
 
-confetti.create(document.getElementById('canvas') as HTMLCanvasElement, {
-  resize: true,
-  useWorker: true,
-})({ particleCount: 200, spread: 200 });
+const list = document.querySelector<HTMLUListElement>('#list');
+const form = document.querySelector<HTMLFormElement>('#new-task-form');
+const input = document.querySelector<HTMLInputElement>('#new-task-title');
+
+form?.addEventListener('submit', (e) => {
+  e.preventDefault(); //evita que 'submit' refresque la p{agina y desaparezca todo.
+
+  if (input?.value == '' || input?.value == null) {
+    //evita que se agreguen tareas vacias.
+    return;
+  }
+
+  const newTask: Task = {
+    id: uuidV4(),
+    title: input?.value,
+    completed: false,
+    createdAt: new Date(),
+  };
+
+  addListItem(newTask);
+
+  // input.value = ''; //Vacia el campo del input cuando se envia.
+  form.reset(); // En caso de querer resetear varios inputs se usaria este.
+});
+
+function addListItem(task: Task) {
+  const label = document.createElement('label');
+  const item = document.createElement('li');
+  const checkbox = document.createElement('input');
+
+  checkbox.type = 'checkbox';
+
+  list?.append(item);
+  item.append(label);
+  label.append(checkbox, task.title);
+}
